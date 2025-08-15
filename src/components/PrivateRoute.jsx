@@ -1,23 +1,13 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Painel from "../pages/Painel";
-import Admin from "../pages/Admin";
-import Login from "../pages/Login";
-import PrivateRoute from "./components/PrivateRoute";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default function AppRoutes() {
-  return (
-    <Routes>
-      <Route path="/" element={<Painel />} />
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="/admin"
-        element={
-          <PrivateRoute>
-            <Admin />
-          </PrivateRoute>
-        }
-      />
-    </Routes>
-  );
+export default function PrivateRoute({ children }) {
+  const { currentUser } = useAuth();
+
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 }

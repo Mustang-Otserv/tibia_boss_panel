@@ -3,25 +3,32 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
-  const { user, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   return (
-    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <nav className="flex space-x-4">
+    <header className="bg-blue-800 text-white px-4 py-3 flex justify-between items-center">
+      <h1 className="text-lg font-bold">Tibia Boss Panel</h1>
+
+      <nav className="flex gap-4 items-center">
         <Link to="/" className="hover:underline">Painel</Link>
-        {user && <Link to="/admin" className="hover:underline">Admin</Link>}
-      </nav>
-      <div>
-        {user ? (
-          <button onClick={logout} className="bg-red-500 px-3 py-1 rounded">
+
+        {currentUser && (
+          <Link to="/admin" className="hover:underline">Admin</Link>
+        )}
+
+        {!currentUser && (
+          <Link to="/login" className="hover:underline">Login</Link>
+        )}
+
+        {currentUser && (
+          <button
+            onClick={logout}
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+          >
             Sair
           </button>
-        ) : (
-          <Link to="/login" className="bg-blue-500 px-3 py-1 rounded">
-            Login
-          </Link>
         )}
-      </div>
+      </nav>
     </header>
   );
 }
