@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Painel from "./pages/Painel";
-import Admin from "./pages/Admin";
-import Login from "./pages/Login";
+import Painel from "../pages/Painel";
+import Admin from "../pages/Admin";
+import Login from "../pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 
 export default function AppRoutes() {
